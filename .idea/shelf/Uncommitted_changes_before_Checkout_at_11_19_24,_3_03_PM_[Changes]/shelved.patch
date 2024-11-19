@@ -1,0 +1,15 @@
+Index: spotify_wrapped/.cache
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\"access_token\": \"BQAuphziyJrT5sQDVvP1ZCSkcF-e5AovXFO5xO5MwVhxkIWNCoVKuGZToiRNNqTmmwIiGdH4syZHBaSeEkWKM5x-41nzOK3p4KahnhL6k4fuyTIIj8GHes592q9VPWdYm0bw9NAnyZmgGHpXOjRG8j0G6F8CA6Q6zD5K84PwHZcit4dJfwcgOibPCwZOtsUC2dohY5tEnfhXsd18BZthXmRdKm4gKdwonndlVGQ\", \"token_type\": \"Bearer\", \"expires_in\": 3600, \"refresh_token\": \"AQC4Y4tUxX2KrmQpwK-QwGWRh4l9ofoeyCc8i9hsIfBJWIdZ0isZ7t-1jJa5vrpozJ4SzqosDIFgDsw68rIqTEUOozFJlVdifBiXgzQl94fh_1dskl-WZ2eBPOwyp67xIY4\", \"scope\": \"user-read-private user-read-email user-top-read\", \"expires_at\": 1732049724}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/spotify_wrapped/.cache b/spotify_wrapped/.cache
+--- a/spotify_wrapped/.cache	(revision cc0307cab690c1c3e74e6ae2b976253dc41b37a5)
++++ b/spotify_wrapped/.cache	(date 1732046555262)
+@@ -1,1 +1,1 @@
+-{"access_token": "BQAuphziyJrT5sQDVvP1ZCSkcF-e5AovXFO5xO5MwVhxkIWNCoVKuGZToiRNNqTmmwIiGdH4syZHBaSeEkWKM5x-41nzOK3p4KahnhL6k4fuyTIIj8GHes592q9VPWdYm0bw9NAnyZmgGHpXOjRG8j0G6F8CA6Q6zD5K84PwHZcit4dJfwcgOibPCwZOtsUC2dohY5tEnfhXsd18BZthXmRdKm4gKdwonndlVGQ", "token_type": "Bearer", "expires_in": 3600, "refresh_token": "AQC4Y4tUxX2KrmQpwK-QwGWRh4l9ofoeyCc8i9hsIfBJWIdZ0isZ7t-1jJa5vrpozJ4SzqosDIFgDsw68rIqTEUOozFJlVdifBiXgzQl94fh_1dskl-WZ2eBPOwyp67xIY4", "scope": "user-read-private user-read-email user-top-read", "expires_at": 1732049724}
+\ No newline at end of file
++{"access_token": "BQCsmYl-ITPM5lfFaDK7AJ1b3AFh_f1ee7mxHNUGM6BFje6hZXSSlsmyed6eR8GzFM2GROhQ1-fTgT2VlAa5wQJgrGXlg9tkpOwFGynyEWqPrJRQONOtS5c4oR85iLjcCUxWpjXoCE70s_RKgv9uL3iqjtveiKXMK-SOz4BjUipJ-LAPuwBDE-FWx9kPU0VSY-O2AjKuECZhaRWqmJWc9JTqnhyUA226fhWA8gM", "token_type": "Bearer", "expires_in": 3600, "refresh_token": "AQAi-qLFVIJ6IxcT5TwSjHqmNWVV9yZuw8_qriSp5Epte-CsUCKht-g2NcI86wz1-3jrEytskidgMPbRw2LetXhygnPyHJ2lzo79QmvRHSwQf0ss_h2I6NWUT5zua_lzKVo", "scope": "user-read-private user-read-email user-top-read", "expires_at": 1732050155}
+\ No newline at end of file
