@@ -13,13 +13,98 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: var(--spotify-black);
-            color: white;
+            /*font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;*/
+            /*background-color: var(--spotify-black);*/
+            /*color: white;*/
             margin: 0;
             padding: 0;
             height: 100vh;
-            overflow-y: auto; 
+            overflow-y: auto;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            --s: 25vmin;
+            --p: calc(var(--s) / 2);
+            --c1: var(--spotify-green);
+            --c2: var(--spotify-dark-gray);
+            --c3: var(--spotify-black);
+            --bg: var(--c3);
+            --d: 4000ms;
+            --e: cubic-bezier(0.76, 0, 0.24, 1);
+
+
+          background-color: var(--bg);
+          background-image:
+            linear-gradient(45deg, var(--c1) 25%, transparent 25%),
+            linear-gradient(-45deg, var(--c1) 25%, transparent 25%),
+            linear-gradient(45deg, transparent 75%, var(--c2) 75%),
+            linear-gradient(-45deg, transparent 75%, var(--c2) 75%);
+          background-size: var(--s) var(--s);
+          background-position:
+            calc(var(--p) *  1) calc(var(--p) *  0),
+            calc(var(--p) * -1) calc(var(--p) *  1),
+            calc(var(--p) *  1) calc(var(--p) * -1),
+            calc(var(--p) * -1) calc(var(--p) *  0);
+          animation:
+            color var(--d) var(--e) infinite,
+            position var(--d) var(--e) infinite;
+        }
+
+        @keyframes color {
+          0%, 25% {
+            --bg: var(--c3);
+          }
+          26%, 50% {
+            --bg: var(--c1);
+          }
+          51%, 75% {
+            --bg: var(--c3);
+          }
+          76%, 100% {
+            --bg: var(--c2);
+          }
+        }
+
+        @keyframes position {
+          0% {
+            background-position:
+              calc(var(--p) *  1) calc(var(--p) *  0),
+              calc(var(--p) * -1) calc(var(--p) *  1),
+              calc(var(--p) *  1) calc(var(--p) * -1),
+              calc(var(--p) * -1) calc(var(--p) *  0);
+          }
+          25% {
+            background-position:
+              calc(var(--p) *  1) calc(var(--p) *  4),
+              calc(var(--p) * -1) calc(var(--p) *  5),
+              calc(var(--p) *  1) calc(var(--p) *  3),
+              calc(var(--p) * -1) calc(var(--p) *  4);
+          }
+          50% {
+            background-position:
+              calc(var(--p) *  3) calc(var(--p) * 8),
+              calc(var(--p) * -3) calc(var(--p) * 9),
+              calc(var(--p) *  2) calc(var(--p) * 7),
+              calc(var(--p) * -2) calc(var(--p) * 8);
+          }
+          75% {
+            background-position:
+              calc(var(--p) *  3) calc(var(--p) * 12),
+              calc(var(--p) * -3) calc(var(--p) * 13),
+              calc(var(--p) *  2) calc(var(--p) * 11),
+              calc(var(--p) * -2) calc(var(--p) * 12);
+          }
+          100% {
+            background-position:
+              calc(var(--p) *  5) calc(var(--p) * 16),
+              calc(var(--p) * -5) calc(var(--p) * 17),
+              calc(var(--p) *  5) calc(var(--p) * 15),
+              calc(var(--p) * -5) calc(var(--p) * 16);
+          }
+        }
+
+        @media (prefers-reduced-motion) {
+          body {
+            animation: none;
+          }
         }
 
         .container {
@@ -30,259 +115,460 @@
             flex-direction: column;
             padding: 0.5rem;
             position: relative;
+            gap: 0.5rem;
         }
 
-        h1 {
-            text-align: center;
-            margin: 0.2rem 0;
-            background: linear-gradient(to right, var(--spotify-green), #4eda7c);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-size: 1.5rem;
-            flex-shrink: 0;
-        }
-
-        .time-period {
-            text-align: center;
-            color: var(--spotify-light-gray);
-            margin: 0 0 0.2rem 0;
-            font-size: 0.9rem;
-            flex-shrink: 0;
-        }
-
-        .tracks-container {
-            position: relative;
-            height: 85vh;
-            height: calc(100vh - 100px);
-            overflow: hidden;
-        }
-
-        .slide {
-            position: absolute;
+        .nav-container {
             width: 100%;
-            height: 100%;
-            transition: transform 0.5s ease;
-        }
-
-        .tracks-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0;
-            height: 100%;
-            padding-bottom: 10px; 
-        }
-
-        .track-card, .artist-card {
-            background-color: var(--spotify-dark-gray);
-            padding: 0.4rem;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            height: calc(85vh / 5);
-            
-        }
-
-        .track-image-container {
-            position: relative;
-            height: 90%;
-            aspect-ratio: 1;
-            padding-bottom: 23px; 
-        }
-
-        .track-image {
-            width: 96%;
-            height: 96%;
-            object-fit: cover;
-        }
-
-        .artist-image {
-            width: 92%;
-            height: 92%;
-            object-fit: cover;
-            border-radius: 50%;
-        }
-
-        .track-info {
-            flex-grow: 1;
+            background-color: var(--spotify-black);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 10;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            min-width: 0;
-        }
-
-        .track-number {
-            color: var(--spotify-green);
-            font-size: 0.8rem;
-            margin-bottom: 0.1rem;
-        }
-
-        .track-name-container {
-            display: flex;
             align-items: center;
             gap: 0.5rem;
-            margin-bottom: 0.2rem;
         }
 
-        .track-name {
-            font-size: 0.85rem;
-            font-weight: bold;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .track-artist, .artist-genres {
-            font-size: 0.75rem;
-            color: var(--spotify-light-gray);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .play-button {
-            background-color: var(--spotify-green);
-            border: none;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
+         .nav-tabs {
             display: flex;
-            align-items: center;
             justify-content: center;
-            cursor: pointer;
+            gap: 1rem;
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            background-color: var(--spotify-dark-gray);
+            border-radius: 20px;
             flex-shrink: 0;
-            transition: transform 0.2s ease;
         }
 
-        .play-button:hover {
-            transform: scale(1.1);
-            background-color: #1ed760;
+        .nav-tab {
+            padding: 0.5rem 1.5rem;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            border: none;
+            background: none;
+            color: var(--spotify-light-gray);
         }
 
-        .play-icon {
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 5px 0 5px 8px;
-            border-color: transparent transparent transparent white;
-            margin-left: 1px;
+        .nav-tab.active {
+            background-color: var(--spotify-green);
+            color: white;
         }
 
-        .pause-icon {
-            width: 8px;
-            height: 10px;
-            border-left: 2px solid white;
-            border-right: 2px solid white;
-            display: none;
-        }
+        /*.transition-slide {*/
+        /*    position: fixed;*/
+        /*    top: 0;*/
+        /*    left: 0;*/
+        /*    width: 100%;*/
+        /*    height: 100%;*/
+        /*    background: var(--spotify-black);*/
+        /*    display: flex;*/
+        /*    justify-content: center;*/
+        /*    align-items: center;*/
+        /*    z-index: 1000;*/
+        /*    animation: slideUp 0.5s ease-out;*/
+        /*}*/
 
-        .genres-slide {
+        .transition-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
+            background-color: var(--spotify-black);
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .transition-slide.sliding-up {
+            animation: slideUp 0.5s ease-out forwards;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .transition-slide.sliding-down {
+            animation: slideDown 0.5s ease-in forwards;
+        }
+
+        .transition-content {
             text-align: center;
         }
-        .genre-item {
-            margin: 1.5rem 0;
-            transition: transform 0.2s ease;
-        text-align: center;
+
+        .transition-title {
+            font-size: 2.5rem;
+            color: var(--spotify-green);
+            margin-bottom: 1rem;
         }
 
-        .genre-item:hover {
-            transform: scale(1.1);
-        }
-
-        .genre-name {
-            font-size: 2rem;  /* All genres same size */
-            font-weight: bold;
-            background: linear-gradient(to right, var(--spotify-green), #4eda7c);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 0.5rem;
-        }
-
-        .genre-rank {
+        .transition-subtitle {
             font-size: 1.2rem;
             color: var(--spotify-light-gray);
-            margin-bottom: 0.5rem;
         }
 
-        .nav-arrow {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--spotify-green);
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-            z-index: 100;
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+}
+        @keyframes slideDown {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(100%);
+            }
         }
 
-        .nav-arrow:hover {
-            transform: translateY(-50%) scale(1.1);
-        }
 
-        .nav-arrow.prev {
-        left: 20px;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.3s ease;
-        }
+                .transition-slide {
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    background: var(--spotify-black);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    transition: all 0.8s ease;
+                    z-index: 2;
+                }
 
-        .nav-arrow.prev.visible {
-        opacity: 1;
-        pointer-events: auto;
-        }
+                .transition-text {
+                    font-size: 3rem;
+                    font-weight: bold;
+                    opacity: 0;
+                    transform: scale(0.8);
+                    transition: all 0.5s ease;
+                    text-align: center;
+                    color: var(--spotify-green);
+                }
 
-        .nav-arrow.next {
-            right: 20px;
-        }
+                .transition-active .transition-text {
+                    opacity: 1;
+                    transform: scale(1);
+                }
 
-        .nav-arrow svg {
-            width: 24px;
-            height: 24px;
-            fill: white;
-        }
+                .content-slide {
+                    position: relative;
+                    z-index: 3;
+                    opacity: 0;
+                    transition: opacity 0.5s ease;
+                }
 
-        .slide.tracks {
-            transform: translateX(0);
-            background-color: var(--spotify-black); /* Match background color */
-        }
-        
-        .slide.artists {
-            transform: translateX(100%);
-            background-color: var(--spotify-black); /* Match background color */
-        }
-        
-        .slide.genres {
-            transform: translateX(200%);
-            background-color: var(--spotify-black); /* Match background color */
+                .content-slide.active {
+                    opacity: 1;
+                }
+
+                .background-overlay {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    background: var(--spotify-black);
+                    z-index: 1;
+                    transition: opacity 0.8s ease;
+                }
+
+                h1 {
+                    text-align: center;
+                    margin: 0.2rem 0;
+                    background: linear-gradient(to right, var(--spotify-green), #4eda7c);
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    color: transparent;
+                    font-size: 1.5rem;
+                    flex-shrink: 0;
+                }
+
+                .time-period {
+                    text-align: center;
+                    color: var(--spotify-light-gray);
+                    margin: 0 0 0.2rem 0;
+                    font-size: 0.9rem;
+                    flex-shrink: 0;
+                }
+
+                .tracks-container {
+                    position: relative;
+                    /*height: 85vh;*/
+                    height: calc(100vh - 100px);
+                    overflow: hidden;
+                    height: calc(100vh - 160px); /* Adjusted to account for nav bar */
+                }
+
+                .slide {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    transition: transform 0.5s ease;
+                    transform: translateX(200%); /* Start all slides off-screen */
+                }
+
+                .slide:nth-child(1) {
+                    transform: translateX(-200%);
+                }
+
+                .slide:nth-child(2) {
+                    transform: translateX(0);
+                }
+
+                .slide:nth-child(3) {
+                    transform: translateX(200%);
+                }
+
+                /*.slide:nth-child(1) { transform: translateX(-400%); }*/
+                /*.slide:nth-child(2) { transform: translateX(-200%); }*/
+                /*.slide:nth-child(3) { transform: translateX(0); }*/
+                /*.slide:nth-child(4) { transform: translateX(200%); }*/
+                /*.slide:nth-child(5) { transform: translateX(400%); }*/
+                /*.slide:nth-child(6) { transform: translateX(600%); }*/
+                /*.slide:nth-child(7) { transform: translateX(800%); }*/
+                /*.slide:nth-child(8) { transform: translateX(1000%); }*/
+                /*.slide:nth-child(9) { transform: translateX(1200%); }*/
+
+                .tracks-grid {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 0;
+                    height: 100%;
+                    padding-bottom: 10px;
+                }
+
+                .track-card, .artist-card {
+                    background-color: var(--spotify-dark-gray);
+                    padding: 0.4rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.6rem;
+                    height: calc(85vh / 5);
+
+                }
+
+                .track-image-container {
+                    position: relative;
+                    height: 90%;
+                    aspect-ratio: 1;
+                    padding-bottom: 23px;
+                }
+
+                .track-image {
+                    width: 96%;
+                    height: 96%;
+                    object-fit: cover;
+                }
+
+                .artist-image {
+                    width: 92%;
+                    height: 92%;
+                    object-fit: cover;
+                    border-radius: 50%;
+                }
+
+                .track-info {
+                    flex-grow: 1;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    min-width: 0;
+                }
+
+                .track-number {
+                    color: var(--spotify-green);
+                    font-size: 0.8rem;
+                    margin-bottom: 0.1rem;
+                }
+
+                .track-name-container {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    margin-bottom: 0.2rem;
+                }
+
+                .track-name {
+                    font-size: 0.85rem;
+                    font-weight: bold;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .track-artist, .artist-genres {
+                    font-size: 0.75rem;
+                    color: var(--spotify-light-gray);
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .play-button {
+                    background-color: var(--spotify-green);
+                    border: none;
+                    border-radius: 50%;
+                    width: 20px;
+                    height: 20px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    flex-shrink: 0;
+                    transition: transform 0.2s ease;
+                }
+
+                .play-button:hover {
+                    transform: scale(1.1);
+                    background-color: #1ed760;
+                }
+
+                .play-icon {
+                    width: 0;
+                    height: 0;
+                    border-style: solid;
+                    border-width: 5px 0 5px 8px;
+                    border-color: transparent transparent transparent white;
+                    margin-left: 1px;
+                }
+
+                .pause-icon {
+                    width: 8px;
+                    height: 10px;
+                    border-left: 2px solid white;
+                    border-right: 2px solid white;
+                    display: none;
+                }
+
+                .genres-slide {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    text-align: center;
+                }
+
+                .genre-item {
+                    margin: 1.5rem 0;
+                    transition: transform 0.2s ease;
+                    text-align: center;
+                }
+
+                .genre-item:hover {
+                    transform: scale(1.1);
+                }
+
+                .genre-name {
+                    font-size: 2rem; /* All genres same size */
+                    font-weight: bold;
+                    background: linear-gradient(to right, var(--spotify-green), #4eda7c);
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    color: transparent;
+                    margin-bottom: 0.5rem;
+                }
+
+                .genre-rank {
+                    font-size: 1.2rem;
+                    color: var(--spotify-light-gray);
+                    margin-bottom: 0.5rem;
+                }
+
+                .nav-arrow {
+                    position: fixed;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    background: var(--spotify-green);
+                    border: none;
+                    border-radius: 50%;
+                    width: 40px;
+                    height: 40px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    transition: transform 0.2s ease;
+                    z-index: 100;
+                }
+
+                .nav-arrow:hover {
+                    transform: translateY(-50%) scale(1.1);
+                }
+
+                .nav-arrow.prev {
+                    left: 20px;
+                    opacity: 0;
+                    pointer-events: none;
+                    transition: opacity 0.3s ease;
+                }
+
+                .nav-arrow.prev.visible {
+                    opacity: 1;
+                    pointer-events: auto;
+                }
+
+                .nav-arrow.next {
+                    right: 20px;
+                }
+
+                .nav-arrow svg {
+                    width: 24px;
+                    height: 24px;
+                    fill: white;
+                }
+
+                .slide.tracks {
+                    transform: translateX(0);
+                    background-color: var(--spotify-black); /* Match background color */
+                }
+
+                .slide.artists {
+                    transform: translateX(100%);
+                    background-color: var(--spotify-black); /* Match background color */
+                }
+
+                .slide.genres {
+                    transform: translateX(200%);
+                    background-color: var(--spotify-black); /* Match background color */
+                }
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>{{ user_name }}'s Top Songs</h1>
-        <div class="time-period">
-            {% if time_range == '1month' %}
-                Last Month
-            {% elif time_range == '6months' %}
-                Last 6 Months
-            {% else %}
-                Last Year
-            {% endif %}
+        <div class="nav-container">
+            <h1>{{ user_name }}'s Top Songs</h1>
+            <div class="time-period">
+                {% if time_range == '1month' %}
+                    Last Month
+                {% elif time_range == '6months' %}
+                    Last 6 Months
+                {% else %}
+                    Last Year
+                {% endif %}
+            </div>
+
+<!--            <div class="nav-tabs">-->
+<!--                <button class="nav-tab active" onclick="updateSlides('tracks')">Tracks</button>-->
+<!--                <button class="nav-tab" onclick="updateSlides('artists')">Artists</button>-->
+<!--                <button class="nav-tab" onclick="updateSlides('genres')">Genres</button>-->
+<!--            </div>-->
         </div>
 
         <div class="tracks-container">
             <div class="slide tracks">
+                <div class="transition-slide">
+                    <div class="transition-content">
+                        <div class="transition-title">Next up: Your Top Tracks</div>
+                        <div class="transition-subtitle">Time to judge your music taste... 👀</div>
+                    </div>
+                </div>
                 <div class="tracks-grid">
                     {% for track in tracks %}
                     <div class="track-card">
@@ -310,6 +596,7 @@
             </div>
 
             <div class="slide artists">
+
                 <div class="tracks-grid">
                     {% for artist in artists %}
                     <div class="artist-card">
@@ -326,6 +613,12 @@
                     </div>
                     {% endfor %}
                 </div>
+                <div class="transition-slide">
+                    <div class="transition-content">
+                        <div class="transition-title">Next up: Your Top Artists</div>
+                        <div class="transition-subtitle">Let's see who you've been obsessing over...</div>
+                    </div>
+                </div>
             </div>
 
             <div class="slide genres">
@@ -336,6 +629,12 @@
                         <div class="genre-name">{{ genre.name }}</div>
                     </div>
                     {% endfor %}
+                </div>
+                <div class="transition-slide">
+                    <div class="transition-content">
+                        <div class="transition-title">Next up: Your Top Genres</div>
+                        <div class="transition-subtitle">Plot twist: It's all K-pop?</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -364,10 +663,86 @@
                 genres: 2
             };
 
+            // const transitionTexts = {
+            //     tracks: {
+            //         title: "Next up: Your Top Tracks",
+            //         subtitle: "Time to judge your music taste... 👀"
+            //     },
+            //     artists: {
+            //         title: "Next up: Your Top Artists",
+            //         subtitle: "Let's see who you've been obsessing over..."
+            //     },
+            //     genres: {
+            //         title: "Next up: Your Top Genres",
+            //         subtitle: "Plot twist: It's all K-pop?"
+            //     }
+            // };
+            // const showTransition = (newSlide) => {
+            //     const transition = document.querySelector('.transition-slide');
+            //     transition.classList.remove('sliding-down');
+            //     transition.style.display = 'flex';
+            //
+            //     // First show transition sliding up
+            //     transition.classList.add('sliding-up');
+            //
+            //     // Start typing animations
+            //     setTimeout(() => {
+            //         typeText(transition.querySelector('.transition-title'), transitionTexts[newSlide].title);
+            //         setTimeout(() => {
+            //             typeText(transition.querySelector('.transition-subtitle'), transitionTexts[newSlide].subtitle);
+            //         }, 1000);
+            //
+            //         // After 2 seconds, start sliding down
+            //         setTimeout(() => {
+            //             transition.classList.add('sliding-down');
+            //
+            //             // After sliding down completes, show the actual slide
+            //             setTimeout(() => {
+            //                 transition.style.display = 'none';
+            //                 // Update the slides positions
+            //                 const slideElements = document.querySelectorAll('.slide');
+            //                 slideElements.forEach((slide, index) => {
+            //                     slide.style.transform = `translateX(${(index - slides[newSlide]) * 100}%)`;
+            //                 });
+            //                 // Update the title
+            //                 const title = document.querySelector('h1');
+            //                 title.textContent = `{{ user_name }}'s Top ${newSlide.charAt(0).toUpperCase() + newSlide.slice(1)}`;
+            //             }, 500); // Wait for slide down animation to complete [[6]](https://poe.com/citation?message_id=302024356350&citation=6)
+            //         }, 2000);
+            //     }, 100);
+            // };
+            // const transition = document.createElement('div');
+            //     transition.className = 'transition-slide';
+            //     transition.innerHTML = `
+            //         <div class="transition-content">
+            //             <div class="transition-title"></div>
+            //             <div class="transition-subtitle"></div>
+            //         </div>
+            //     `;
+            //     document.body.appendChild(transition);
+
+
             const slideElements = document.querySelectorAll('.slide');
             slideElements.forEach((slide, index) => {
                 slide.style.transform = `translateX(${(index - slides[newSlide]) * 100}%)`;
             });
+
+             // Show transition for the new slide
+            const nextSlideElement = slideElements[slides[newSlide]];
+            const transitionElement = nextSlideElement.querySelector('.transition-slide');
+
+            // First show transition sliding up
+            transitionElement.classList.add('sliding-up');
+
+            setTimeout(() => {
+                // After 2 seconds, start sliding down
+                transitionElement.classList.add('sliding-down');
+
+                // Update the slides positions
+                slideElements.forEach((slide, index) => {
+                    slide.style.transform = `translateX(${(index - slides[newSlide]) * 100}%)`;
+                });
+            }, 2000);
 
             const title = document.querySelector('h1');
             title.textContent = `{{ user_name }}'s Top ${newSlide.charAt(0).toUpperCase() + newSlide.slice(1)}`;
@@ -431,6 +806,19 @@
                     pauseIcon.style.display = 'none';
                 };
             }
+        }
+        function typeText(element, text) {
+            let index = 0;
+            element.textContent = '';
+
+            function type() {
+                if (index < text.length) {
+                    element.textContent += text.charAt(index);
+                    index++;
+                    setTimeout(type, 50);
+                }
+            }
+            type();
         }
     </script>
 </body>
