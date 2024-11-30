@@ -276,6 +276,84 @@
         .back-arrow {
             font-size: 1.2rem;
         }
+
+        .llm-insights-section {
+            background: var(--spotify-dark-gray);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .insight-card {
+            background: linear-gradient(to right, #4eda7c15, var(--spotify-green)15);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        .insights-section {
+            background: var(--spotify-dark-gray);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+        }
+
+        .insight-cards {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .insight-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(29, 185, 84, 0.2);
+        }
+        .insight-content {
+            color: var(--spotify-light-gray);
+            font-size: 0.75rem;
+            line-height: 1.6;
+            transition: color 0.3s ease;
+        }
+        .recommendations {
+            white-space: pre-line;
+        }
+
+        .recommendations-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .recommendations-list li {
+            padding: 0.5rem 0;
+            color: var(--spotify-light-gray);
+            transition: color 0.3s ease;
+        }
+
+        .recommendations-list li:hover {
+            color: var(--spotify-green);
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Slide transitions matching existing styles */
+        .slide {
+            transform: translateX(200%);
+            background-color: var(--spotify-black);
+        }
         
     </style>
 </head>
@@ -360,6 +438,35 @@
                 </ul>
             {% endif %}
         </div>
+        <div class="llm-insights-section">
+                <div class="slide-transition">
+                    <h2 class="section-title">AI-Powered Music Analysis</h2>
+                    <div class="llm-content-container">
+                        <!-- Music Comparison Section -->
+                        <div class="insight-card" data-aos="fade-up">
+                            <h3>Music Comparison</h3>
+                            <p>{{ llm_response.music_comparison }}</p>
+                        </div>
+
+                        <!-- Personality Comparison Section -->
+                        <div class="insight-card" data-aos="fade-up" data-aos-delay="200">
+                            <h3>Personality Comparison</h3>
+                            <p>{{ llm_response.personality_comparison }}</p>
+                        </div>
+
+                        <!-- Recommendations Section -->
+                        <div class="insight-card" data-aos="fade-up" data-aos-delay="400">
+                            <h3>Recommended Tracks</h3>
+                            <ul class="recommendations-list">
+                                {% for track in llm_response.recommendations %}
+                                    <li>{{ track }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
 
     <script>
         function copyLink() {
@@ -411,6 +518,19 @@
                 };
             }
         }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.insight-card');
+
+            cards.forEach(card => {
+                const delay = parseInt(card.getAttribute('data-delay')) || 0;
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, delay);
+            });
+        });
     </script>
 </body>
 </html>

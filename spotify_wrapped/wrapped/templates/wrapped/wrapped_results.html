@@ -901,63 +901,7 @@
                 llm: 3
             };
 
-            // const transitionTexts = {
-            //     tracks: {
-            //         title: "Next up: Your Top Tracks",
-            //         subtitle: "Time to judge your music taste... 👀"
-            //     },
-            //     artists: {
-            //         title: "Next up: Your Top Artists",
-            //         subtitle: "Let's see who you've been obsessing over..."
-            //     },
-            //     genres: {
-            //         title: "Next up: Your Top Genres",
-            //         subtitle: "Plot twist: It's all K-pop?"
-            //     }
-            // };
-            // const showTransition = (newSlide) => {
-            //     const transition = document.querySelector('.transition-slide');
-            //     transition.classList.remove('sliding-down');
-            //     transition.style.display = 'flex';
-            //
-            //     // First show transition sliding up
-            //     transition.classList.add('sliding-up');
-            //
-            //     // Start typing animations
-            //     setTimeout(() => {
-            //         typeText(transition.querySelector('.transition-title'), transitionTexts[newSlide].title);
-            //         setTimeout(() => {
-            //             typeText(transition.querySelector('.transition-subtitle'), transitionTexts[newSlide].subtitle);
-            //         }, 1000);
-            //
-            //         // After 2 seconds, start sliding down
-            //         setTimeout(() => {
-            //             transition.classList.add('sliding-down');
-            //
-            //             // After sliding down completes, show the actual slide
-            //             setTimeout(() => {
-            //                 transition.style.display = 'none';
-            //                 // Update the slides positions
-            //                 const slideElements = document.querySelectorAll('.slide');
-            //                 slideElements.forEach((slide, index) => {
-            //                     slide.style.transform = `translateX(${(index - slides[newSlide]) * 100}%)`;
-            //                 });
-            //                 // Update the title
-            //                 const title = document.querySelector('h1');
-            //                 title.textContent = `{{ user_name }}'s Top ${newSlide.charAt(0).toUpperCase() + newSlide.slice(1)}`;
-            //             }, 500); // Wait for slide down animation to complete [[6]](https://poe.com/citation?message_id=302024356350&citation=6)
-            //         }, 2000);
-            //     }, 100);
-            // };
-            // const transition = document.createElement('div');
-            //     transition.className = 'transition-slide';
-            //     transition.innerHTML = `
-            //         <div class="transition-content">
-            //             <div class="transition-title"></div>
-            //             <div class="transition-subtitle"></div>
-            //         </div>
-            //     `;
-            //     document.body.appendChild(transition);
+
 
 
             const slideElements = document.querySelectorAll('.slide');
