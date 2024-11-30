@@ -172,6 +172,83 @@
             cursor: pointer;
         }
 
+         .row {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        .card {
+            background: var(--spotify-dark-gray);
+            border-radius: 8px;
+            padding: 1rem;
+            transition: transform 0.2s, box-shadow 0.3s ease;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 15px rgba(30, 215, 96, 0.3);
+        }
+
+        .card-body {
+            padding: 1.5rem;
+            background: var(--spotify-dark-gray);
+            border-radius: 8px;
+            transition: transform 0.2s, box-shadow 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(78, 218, 124, 0.1)
+        }
+
+        .card-body:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 15px rgba(78, 218, 124, 0.2)
+        }
+
+        .card-title {
+            margin-bottom: 1rem;
+            font-weight: bold;
+            background: linear-gradient(to right, #4eda7c, var(--spotify-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .card-text {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+            color: var(--spotify-light-gray)
+        }
+
+        .card-text:hover {
+            color: var(--spotify-green);
+            text-shadow: 0 0 5px var(--spotify-green)
+        }
+
+        .typing-animation {
+            position: relative;
+            overflow: hidden;
+            white-space: pre-wrap;
+            color: var(--spotify-light-gray);
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards,
+            slideUp 0.5s ease forwards
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
         .play-button {
             background-color: var(--spotify-green);
             border: none;
@@ -348,6 +425,14 @@
                 transform: translateY(0);
             }
         }
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
 
         /* Slide transitions matching existing styles */
         .slide {
@@ -439,32 +524,53 @@
             {% endif %}
         </div>
         <div class="llm-insights-section">
-                <div class="slide-transition">
-                    <h2 class="section-title">AI-Powered Music Analysis</h2>
-                    <div class="llm-content-container">
-                        <!-- Music Comparison Section -->
-                        <div class="insight-card" data-aos="fade-up">
-                            <h3>Music Comparison</h3>
-                            <p>{{ llm_response.music_comparison }}</p>
-                        </div>
+<!--                <div class="slide-transition">-->
+<!--                    <h2 class="section-title">AI-Powered Music Analysis</h2>-->
+<!--                    <div class="llm-content-container">-->
+<!--                        &lt;!&ndash; Music Comparison Section &ndash;&gt;-->
+<!--                        <div class="insight-card" data-aos="fade-up">-->
+<!--                            <h3>Music Comparison</h3>-->
+<!--                            <p>{{ llm_response.music_comparison }}</p>-->
+<!--                        </div>-->
 
-                        <!-- Personality Comparison Section -->
-                        <div class="insight-card" data-aos="fade-up" data-aos-delay="200">
-                            <h3>Personality Comparison</h3>
-                            <p>{{ llm_response.personality_comparison }}</p>
-                        </div>
+<!--                        &lt;!&ndash; Personality Comparison Section &ndash;&gt;-->
+<!--                        <div class="insight-card" data-aos="fade-up" data-aos-delay="200">-->
+<!--                            <h3>Personality Comparison</h3>-->
+<!--                            <p>{{ llm_response.personality_comparison }}</p>-->
+<!--                        </div>-->
 
-                        <!-- Recommendations Section -->
-                        <div class="insight-card" data-aos="fade-up" data-aos-delay="400">
-                            <h3>Recommended Tracks</h3>
-                            <ul class="recommendations-list">
-                                {% for track in llm_response.recommendations %}
-                                    <li>{{ track }}</li>
-                                {% endfor %}
-                            </ul>
+<!--                        &lt;!&ndash; Recommendations Section &ndash;&gt;-->
+<!--                        <div class="insight-card" data-aos="fade-up" data-aos-delay="400">-->
+<!--                            <h3>Recommended Tracks</h3>-->
+<!--                            <ul class="recommendations-list">-->
+<!--                                {% for track in llm_response.recommendations %}-->
+<!--                                    <li>{{ track }}</li>-->
+<!--                                {% endfor %}-->
+<!--                            </ul>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+                    <div class="row">
+                        {% for line in gemini_comparison %}
+                        <div class="card" class="fadeIn {{ forloop.counter }}">
+                            <div class="card-body">
+                                <h5 class="card-title" style="background: linear-gradient(to right, #4eda7c, var(--spotify-green));
+                                    -webkit-background-clip: text;
+                                    background-clip: text;
+                                    color: transparent;">
+                                    {% if forloop.counter == 1 %}
+                                        Music Comparison
+                                    {% elif forloop.counter == 2 %}
+                                        Personality Comparison
+                                    {% else %}
+                                        Music Recommendations
+                                    {% endif %}
+                                </h5>
+                                <p class="card-text typing-animation">{{ line }}</p>
+                            </div>
                         </div>
+                        {% endfor %}
                     </div>
-                </div>
             </div>
     </div>
 
