@@ -955,6 +955,7 @@ def wrapped_results(request):
         
         genre_count = {}  
         artists_data = []
+        artists_names = []
         
         for artist in top_artists['items']:
             artists_data.append({
@@ -962,6 +963,7 @@ def wrapped_results(request):
                 'image_url': artist['images'][0]['url'] if artist['images'] else None,
                 'genres': artist['genres']
             })
+            artists_names.append(artist['name'])
             for genre in artist['genres']:
                 genre_count[genre] = genre_count.get(genre, 0) + 1
             
