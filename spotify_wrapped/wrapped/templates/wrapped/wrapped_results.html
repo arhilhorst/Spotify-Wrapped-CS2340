@@ -319,16 +319,24 @@
             background: var(--spotify-dark-gray);
             border-radius: 8px;
             padding: 1rem;
-            transition: transform 0.2s;
+            transition: transform 0.2s, box-shadow 0.3s ease;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
         }
 
         .card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 0 15px rgba(30, 215, 96, 0.3);
         }
 
         .card-title {
-            color: var(--spotify-green);
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+            background: linear-gradient(to right, #4eda7c, var(--spotify-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         .card-text {
@@ -336,7 +344,11 @@
             margin-bottom: 1rem;
         }        
         
-        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
         .nav-arrow {
             position: fixed;
             top: 50%;
@@ -353,6 +365,24 @@
             transition: transform 0.2s ease;
             z-index: 100;
         }
+
+        @keyframes blink-caret {
+                from, to { border-color: transparent }
+                50% { border-color: var(--spotify-green) }
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+
 
 
                 .transition-slide {
@@ -852,29 +882,36 @@
             </div>
 
             <div class="slide llm">
-            
-            
-                <div class="row"></div>
-                {% for line in personality %} 
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            Personality Profile:
-                        </h5>
-                        <p class="card-text">{{ line }}</p>
+                <div class="transition-slide">
+                    <div class="transition-content">
+                        <div class="transition-title">Next up: Your LLM Music Analysis</div>
+                        <div class="transition-subtitle">Lets see who you really are...</div>
                     </div>
                 </div>
-                {% endfor %}
-                {% comment %}<div class="llm_container">
-                    <h3 class="title">Your Musical Personality</h3>
-                    <div class="content">
-                        {% for paragraph in personality %}
-                            <div class="para">{{ paragraph }}</div>
-                        {% endfor %}
+                <div class="row">
+                    {% for line in personality %}
+                    <div class="card" class="fadeIn {{ forloop.counter }}">
+                        <div class="card-body">
+                            <h5 class="card-title" style="background: linear-gradient(to right, #4eda7c, var(--spotify-green));
+                                -webkit-background-clip: text;
+                                background-clip: text;
+                                color: transparent;">
+                                {% if forloop.counter == 1 %}
+                                    Music Personality
+                                {% elif forloop.counter == 2 %}
+                                    Musical Traits
+                                {% else %}
+                                    Recommended Tracks
+                                {% endif %}
+                            </h5>
+                            <p class="card-text typing-animation">{{ line }}</p>
+                        </div>
                     </div>
-                </div>{% endcomment %}
+
+                    {% endfor %}
+                </div>
             </div>
-        </div>
+
 
         <button class="nav-arrow prev" onclick="prevSlide()">
             <svg viewBox="0 0 24 24">
